@@ -7,94 +7,107 @@ use App\Models\Employee;
 use App\Models\Department;
 use App\Models\Position;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Super Admin
-        $superAdminUser = User::firstOrCreate(
-            ['email' => 'superadmin@absensi.local'],
+        $superAdminUser = User::updateOrCreate(
+            ['email' => 'ruddy@absensi.app'],
             [
-                'name' => 'Super Admin',
-                'password' => Hash::make('password'),
+                'name' => 'Ruddy Paninggalan',
+                'password' => 'ganteng123',
                 'email_verified_at' => now(),
             ]
         );
-        $superAdminUser->assignRole('super_admin');
+        $superAdminUser->syncRoles(['super_admin']);
 
-        // HRD
         $hrDept = Department::where('code', 'HR')->first();
         $hrPos = Position::where('name', 'Manager HR')->first();
 
-        $hrdUser = User::firstOrCreate(
-            ['email' => 'hrd@absensi.local'],
-            ['name' => 'Budi HRD', 'password' => Hash::make('password'), 'email_verified_at' => now()]
+        $hrdUser = User::updateOrCreate(
+            ['email' => 'sabina@absensi.app'],
+            [
+                'name' => 'Sabina Panjahitan',
+                'password' => 'ganteng123',
+                'email_verified_at' => now(),
+            ]
         );
-        $hrdUser->assignRole('hrd');
+        $hrdUser->syncRoles(['hrd']);
 
-        Employee::firstOrCreate(
-            ['email' => 'hrd@absensi.local'],
+        Employee::updateOrCreate(
+            ['employee_code' => 'EMP001'],
             [
                 'user_id' => $hrdUser->id,
                 'department_id' => $hrDept?->id ?? 1,
                 'position_id' => $hrPos?->id ?? 1,
                 'employee_code' => 'EMP001',
-                'name' => 'Budi HRD',
+                'email' => 'sabina@absensi.app',
+                'name' => 'Sabina Panjahitan',
                 'phone' => '08100000001',
                 'join_date' => '2022-01-01',
                 'status' => 'active',
-                'gender' => 'male',
+                'gender' => 'female',
+                'address' => 'Medan, Indonesia',
             ]
         );
 
-        // Kepala Departemen IT
         $itDept = Department::where('code', 'IT')->first();
         $mgrPos = Position::where('name', 'Manager IT')->first();
 
-        $kepalaUser = User::firstOrCreate(
-            ['email' => 'kepala.it@absensi.local'],
-            ['name' => 'Siti Kepala IT', 'password' => Hash::make('password'), 'email_verified_at' => now()]
+        $kepalaUser = User::updateOrCreate(
+            ['email' => 'dimas@absensi.app'],
+            [
+                'name' => 'Dimas Pratama',
+                'password' => 'ganteng123',
+                'email_verified_at' => now(),
+            ]
         );
-        $kepalaUser->assignRole('kepala_departemen');
+        $kepalaUser->syncRoles(['kepala_departemen']);
 
-        Employee::firstOrCreate(
-            ['email' => 'kepala.it@absensi.local'],
+        Employee::updateOrCreate(
+            ['employee_code' => 'EMP002'],
             [
                 'user_id' => $kepalaUser->id,
                 'department_id' => $itDept?->id ?? 2,
                 'position_id' => $mgrPos?->id ?? 3,
                 'employee_code' => 'EMP002',
-                'name' => 'Siti Kepala IT',
+                'email' => 'dimas@absensi.app',
+                'name' => 'Dimas Pratama',
                 'phone' => '08100000002',
                 'join_date' => '2022-03-01',
                 'status' => 'active',
-                'gender' => 'female',
+                'gender' => 'male',
+                'address' => 'Bandung, Indonesia',
             ]
         );
 
-        // Karyawan biasa
         $devPos = Position::where('name', 'Junior Developer')->first();
 
-        $karyawanUser = User::firstOrCreate(
-            ['email' => 'karyawan@absensi.local'],
-            ['name' => 'Andi Karyawan', 'password' => Hash::make('password'), 'email_verified_at' => now()]
+        $karyawanUser = User::updateOrCreate(
+            ['email' => 'sinta@absensi.app'],
+            [
+                'name' => 'Sinta Maharani',
+                'password' => 'ganteng123',
+                'email_verified_at' => now(),
+            ]
         );
-        $karyawanUser->assignRole('karyawan');
+        $karyawanUser->syncRoles(['karyawan']);
 
-        Employee::firstOrCreate(
-            ['email' => 'karyawan@absensi.local'],
+        Employee::updateOrCreate(
+            ['employee_code' => 'EMP003'],
             [
                 'user_id' => $karyawanUser->id,
                 'department_id' => $itDept?->id ?? 2,
                 'position_id' => $devPos?->id ?? 5,
                 'employee_code' => 'EMP003',
-                'name' => 'Andi Karyawan',
+                'email' => 'sinta@absensi.app',
+                'name' => 'Sinta Maharani',
                 'phone' => '08100000003',
                 'join_date' => '2023-06-01',
                 'status' => 'active',
-                'gender' => 'male',
+                'gender' => 'female',
+                'address' => 'Surabaya, Indonesia',
             ]
         );
     }
