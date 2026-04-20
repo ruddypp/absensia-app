@@ -31,6 +31,13 @@ Catatan:
 
 - `APP_URL` dan `ASSET_URL` wajib `https`.
 - App ini sudah diatur untuk percaya reverse proxy dan force `https` saat production.
+- Redis tidak wajib. Biarkan `SESSION_DRIVER=database`, `CACHE_STORE=database`, dan `QUEUE_CONNECTION=database`.
+
+## Build Type Dokploy
+
+Pakai build bawaan Dokploy atau Nixpacks biasa, tidak perlu Dockerfile.
+
+Repo ini sekarang memakai `npm` lockfile, bukan `yarn`, supaya build frontend tidak bentrok saat Dokploy install `composer` dan `node`.
 
 ## Perintah Setelah Deploy
 
@@ -57,10 +64,10 @@ ganteng123
 
 Akun:
 
-- `reza@absensi.local` → role `super_admin`
-- `nabila@absensi.local` → role `hrd`
-- `dimas@absensi.local` → role `kepala_departemen`
-- `sinta@absensi.local` → role `karyawan`
+- `ruddy@absensi.app` → role `super_admin`
+- `sabina@absensi.app` → role `hrd`
+- `dimas@absensi.app` → role `kepala_departemen`
+- `sinta@absensi.app` → role `karyawan`
 
 ## Verifikasi Setelah Live
 
